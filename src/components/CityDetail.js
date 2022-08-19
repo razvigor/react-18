@@ -1,5 +1,5 @@
 import { CityDetailStoreContext } from '../context/CityDetailContext';
-import { useContext } from 'react';
+import { Suspense, useContext } from 'react';
 
 function CityInfo() {
 	const { getCityInfo } = useContext(CityDetailStoreContext);
@@ -53,9 +53,21 @@ function CityLocation() {
 export default function CityDetail() {
 	return (
 		<>
-			<CityInfo />
-			<CityStats />
-			<CityLocation />
+			<Suspense
+				fallback={<div className='list-group-item city-meta'>Loading...</div>}
+			>
+				<CityInfo />
+			</Suspense>
+			<Suspense
+				fallback={<div className='list-group-item city-meta'>Loading...</div>}
+			>
+				<CityStats />
+			</Suspense>
+			<Suspense
+				fallback={<div className='list-group-item city-meta'>Loading...</div>}
+			>
+				<CityLocation />
+			</Suspense>
 		</>
 	);
 }
